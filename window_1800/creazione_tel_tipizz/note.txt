@@ -1,0 +1,43 @@
+Passaggi:
+- creare dizionario numeri di telefono e celle OK
+  programma diz_telefoni.py ha in input intercettati.csv (da compilare a mano, probabilmente lo avevo fatto durante l'esame dei files) e
+  le cartelle con i csv estratti e uniformati
+  crea telefoni.csv e celle.csv
+ 
+- aggiungere flag "intercettato" ai telefoni OK
+  lo fa lo stesso programma diz_telefoni.py
+  NOTA: ci sono dei telefoni che ci sono sfuggiti, perche al passo seguente compaiono telefonate fra due numeri non intercettati, che non e' possibile
+  un esempio probabile e' 195N = +393533+4077 (?) che potrebbe essere questo: +393533004077
+
+- creare file telefonate semplificato: progr. tempo, chiamante, chiamato, cella chiamante, cella chiamata OK
+  programma crea_tel.py, ha in input telefoni.csv, celle.csv e le intercettazioni, crea tel_cod.csv
+
+- creare file eventi tipizzati almeno per eventi senza geolocalizzazione
+  programma crea_tipi.py
+  leggo sorted_tel_cod.csv in pandas (dovrebbe essere tel_cod.csv riordinato)
+  parto dal primo record e faccio un loop sui successivi con df.iloc[[i]]
+  - scarto quelli identici
+  - per ognuno che corrisponde a un evento tipizzato creo l'evento in out
+  CI SONO MOLTI EVENTI RIPETUTI, CAPIRE PERCHE'!
+  A parte un problema di controlli nel programma, ci sono molti casi in cui x chiama y e y chiama z diverse volte nella finestra 
+  vale la pena di tenerli o di lasciarne uno solo? o di contare quante volte chiama?
+  magari li lascio e in un passo intermedio successivo sommo eventi uguali in modo da avere la molteplicità invece delle ripetizioni
+
+SONO ARRIVATO QUI
+- bisogna controllare tutto, ho l'impressione che ci siano eventi strani, ad es. E3: x -> y -> a -> y, oppure x -> a -> b -> c
+- calcolare numero eventi non significativi per ogni tipo di evento
+- calcolare significativita per tipi di evento
+  leggo typed_events, faccio un dizionario con entry e1(tel1,tel2,tel3) e simili, come dati:
+  numero di occorrenze dell'evento; numero di chiamate tel1,tel2 e tel2,tel3
+  in questo primo passo creo anche dizionario tel1,tel2 delle coppie di chiamate
+  secondo passo: leggo il csv di partenza e calcolo i numeri di chiamate
+  terzo passo: aggiorno i contatori del dizionario di eventi con quello delle telefonate
+- dare elenco numeri non indagati coinvolti in eventi significativi
+
+- passare alla ricerca di pattern
+  ad es. Evento, tipo, numero eventi E1 vicini con stesso tel. ecc.
+  poi kcluster? perche non ho un target...
+
+- considerare anche i tipi geolocalizzati
+- mettere insieme i dati GPS? (carella 5 allegato J)
+- mettere insieme dati viaggi? (cartella 5 allegato E, alcuni sono pdf leggibili)
